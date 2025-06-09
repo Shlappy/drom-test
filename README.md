@@ -9,9 +9,6 @@ git clone https://github.com/Shlappy/drom-test.git drom-test
 ```
 
 ### Первое задание
-Поместить желаемое кол-во файлов count и прописать в них любые числа
-в папки по пути **TotalCount/files**
-
 Скрипт находится по пути **TotalCount/GetTotalCountFromFiles.php**
 
 1. Клонировать пакет и перейти в него (если ещё не было сделано):
@@ -24,7 +21,10 @@ git clone https://github.com/Shlappy/drom-test.git drom-test
 composer install
 ```
 
-3. Для запуска скрипта - выполнить команду из корневой папки:
+3. Поместить желаемое кол-во файлов count и прописать в них любые числа
+в папки по пути **TotalCount/files**
+
+4. Для запуска скрипта - выполнить команду из корневой папки:
 ```
 php TotalCount/GetTotalCountFromFiles.php
 ```
