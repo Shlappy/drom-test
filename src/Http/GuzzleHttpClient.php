@@ -4,7 +4,7 @@ namespace CommentsClient\Http;
 
 use CommentsClient\Utils\Logger\LoggerInterface;
 use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 
@@ -62,19 +62,18 @@ class GuzzleHttpClient implements HttpClientInterface
      * @param string $uri
      * @param array $data
      * @return ResponseInterface
-     * @throws BadResponseException
+     * @throws GuzzleException
+     * @throws \InvalidArgumentException
      */
     protected function request(string $method, string $uri, array $data = []): ResponseInterface
     {
         try {
             $options = $data
-                ? [
-                    'body' => $this->encodePayload($data)
-                ]
+                ? ['json' => $data]
                 : [];
             return $this->client->request($method, $uri, $options);
 
-        } catch (BadResponseException $e) {
+        } catch (GuzzleException $e) {
             $this->logger->error("Ошибка запроса {$e->getCode()} - {$e->getMessage()}");
 
             throw $e;
@@ -84,23 +83,5 @@ class GuzzleHttpClient implements HttpClientInterface
 
             throw $e;
         }
-    }
-
-    /**
-     * Кодирует данные в json-объект
-     *
-     * @param array $data
-     * @return string
-     * @throws \InvalidArgumentException
-     */
-    protected function encodePayload(array $data): string
-    {
-        $encoded = json_encode($data, JSON_UNESCAPED_UNICODE);
-
-        if (false === $encoded) {
-            throw new \InvalidArgumentException('Ошибка при кодировке данных запроса.');
-        }
-
-        return $encoded;
     }
 }
