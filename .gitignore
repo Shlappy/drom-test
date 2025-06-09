@@ -1,0 +1,10 @@
+/.phpunit.cache
+/vendor
+.env
+.phpunit.result.cache
+/storage
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
