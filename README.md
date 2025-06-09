@@ -1,14 +1,30 @@
 ## Установка
-В уже существующем PHP-проекте выполнить команду:
+- Для установки как библиотека - в уже существующем PHP-проекте выполнить команду:
 ```
-composer require shlappy/drom-test
+composer require shlappy/drom-test:dev-master
+```
+- Для установки как проект для разработки:
+```
+git clone https://github.com/Shlappy/drom-test.git drom-test
 ```
 
 ### Первое задание
 Поместить желаемое кол-во файлов count и прописать в них любые числа
 в папки по пути **TotalCount/files**
 
-Для запуска запустить скрипт командой из корневой папки:
+Скрипт находится по пути **TotalCount/GetTotalCountFromFiles.php**
+
+1. Клонировать пакет и перейти в него (если ещё не было сделано):
+```
+git clone https://github.com/Shlappy/drom-test.git drom-test
+```
+
+2. Установить зависимости (если ещё не было сделано)
+```
+composer install
+```
+
+3. Для запуска скрипта - выполнить команду из корневой папки:
 ```
 php TotalCount/GetTotalCountFromFiles.php
 ```
@@ -18,7 +34,23 @@ php TotalCount/GetTotalCountFromFiles.php
 Клиент находится по пути **src/Client.php**. Пример использования клиента
 находится в файле **src/Example.php**
 
-Запуск тестов из корневой папки (находятся по пути **tests/**):
+Для использования клиента в своём проекте:
+```
+use CommentsClient\Client;
+```
+
+Для запуска тестов:
+1. Клонировать пакет и перейти в него (если ещё не было сделано):
+```
+git clone https://github.com/Shlappy/drom-test.git drom-test
+```
+
+2. Установить зависимости (если ещё не было сделано)
+```
+composer install
+```
+
+3. Запуск тестов из корневой папки (находятся по пути **tests/**):
 ```
 php vendor/bin/phpunit
 ```

@@ -10,21 +10,19 @@ class FileLoggerTest extends TestCase
 {
     private string $logDir;
     private string $logFile;
+    private string $logFileName;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        // Точный путь повторяет константу внутри FileLogger
         $this->logDir  = __DIR__ . '/../../storage/logs/';
-        $this->logFile = $this->logDir . FileLogger::FILENAME;
+        $this->logFileName = 'testing-log.txt';
+        $this->logFile = $this->logDir . $this->logFileName;
 
         // Очистим до старта
         if (file_exists($this->logFile)) {
             unlink($this->logFile);
-        }
-        if (is_dir($this->logDir)) {
-            @rmdir($this->logDir);
         }
     }
 
@@ -33,9 +31,6 @@ class FileLoggerTest extends TestCase
         // Убираем после
         if (file_exists($this->logFile)) {
             unlink($this->logFile);
-        }
-        if (is_dir($this->logDir)) {
-            @rmdir($this->logDir);
         }
 
         parent::tearDown();
@@ -48,7 +43,7 @@ class FileLoggerTest extends TestCase
      */
     public function testLogWritesSimpleMessage(): void
     {
-        $fileLogger = new FileLogger();
+        $fileLogger = new FileLogger($this->logFileName, $this->logDir);
         $message = 'Тестовое сообщение';
         $level = Logger::ERROR;
 
@@ -66,7 +61,7 @@ class FileLoggerTest extends TestCase
      */
     public function testErrorWritesPrefixedError(): void
     {
-        $fileLogger = new FileLogger();
+        $fileLogger = new FileLogger($this->logFileName, $this->logDir);
         $message = 'Ошибка';
 
         $fileLogger->error($message);

@@ -4,10 +4,12 @@ namespace CommentsClient\Utils\Logger;
 
 class FileLogger implements LoggerInterface
 {
-    // В реальном клиенте будет вынесено в конфиги
-    const PATH = __DIR__ . '/../../../storage/logs/';
-
-    const FILENAME = 'log.txt';
+    public function __construct(
+        protected string $filename = 'log.txt',
+        // В реальном клиенте будет вынесено в конфиг
+        protected string $path = __DIR__ . '/../../../storage/logs/',
+    ) {
+    }
 
     public function log(string $message, string $level): void
     {
@@ -33,12 +35,12 @@ class FileLogger implements LoggerInterface
      */
     protected function writeLog(string $message): void
     {
-        $dir = @scandir(self::PATH);
+        $dir = @scandir($this->path);
 
         if (false === $dir) {
-            mkdir(self::PATH, 0777, true);
+            mkdir($this->path, 0777, true);
         }
 
-        file_put_contents(self::PATH . self::FILENAME, $message . PHP_EOL);
+        file_put_contents($this->path . $this->filename, $message . PHP_EOL);
     }
 }
